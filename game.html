@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rock Paper Scissor</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: arial;   
+        }
+
+        .a {
+
+            font-weight: bold;
+            font-size: 30px;
+        }
+
+        button {
+            background-color: black;
+            border: 3px solid white;
+            border-radius: 60px;
+            margin-right: 10px;
+            padding: 10px;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+        }
+
+        .rb,
+        .ap {
+            background-color: white;
+            color: black;
+            border-radius: 1px;
+            width: 100px;
+            height: 40px;
+        }
+
+        .me {
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="a">Rock Paper Scissors</p>
+    <button class="b" ; onclick=" uc='rock'; comp();   user('r');
+        y();
+        score();
+        "><img src="images\rock-emoji.png" class="me"></button>
+    <button class="c" onclick="uc='paper';comp(); user('p');
+        y();score();"><img src="images\paper-emoji.png" class="me"></button>
+    <button class="d" onclick="uc='scissors';comp(); user('s');
+        y();score();"><img src="images\scissors-emoji.png" class="me"></button>
+    <p class="rs"></p>
+    <p class="x"></p>
+    <p class="z">Wins:0,Losses:0,Ties:0</p>
+    <button class="rb" onclick="reset()">Reset Score</button>
+    <button class="ap"  onclick=" autoplay();">Auto play</button>
+    <script>
+        let uc='';
+        let com='';
+        function comp() {
+            const a = Math.random();
+            if (a >= 0 && a <= 1 / 3) {
+                com = 'r';
+            }
+            if (a > 1 / 3 && a <= 2 / 3) {
+                com = 's';
+            }
+            if (a < 1 && a > 2 / 3) {
+                com = 'p';
+            }
+
+        }
+        let ls = 0;
+        let ts = 0;
+        let ws = 0;
+        function user(c) {
+            if (c === 's' && com === 's') {
+                const rel = document.querySelector('.rs');
+                rel.innerHTML = 'Tie';
+                ts = ts + 1;
+            }
+            if (c === 's' && com === 'p') {
+                const rel = document.querySelector('.rs');
+                rel.innerHTML = 'Win';
+                ws = ws + 1;
+            }
+            if (c === 's' && com === 'r') {
+                const rel = document.querySelector('.rs');
+                rel.innerHTML = 'Lose';
+                ls = ls + 1;
+            }
+            if (c === 'r' && com === 's') {
+                const rel = document.querySelector('.rs');
+                rel.innerHTML = 'Win';
+                ws = ws + 1;
+            }
+            if (c === 'r' && com === 'p') {
+                const rel = document.querySelector('.rs');
+                rel.innerHTML = 'Lose';
+                ls = ls + 1;
+            }
+            if (c === 'r' && com === 'r') {
+                const rel = document.querySelector('.rs');
+                rel.innerHTML = 'Tie';
+                ts = ts + 1;
+            }
+            if (c === 'p' && com === 'p') {
+                const rel = document.querySelector('.rs');
+                rel.innerHTML = 'Tie';
+                ts = ts + 1;
+            }
+            if (c === 'p' && com === 'r') {
+                const rel = document.querySelector('.rs');
+                rel.innerHTML = 'Win';
+                ws = ws + 1;
+            }
+            if (c === 'p' && com === 's') {
+                const rel = document.querySelector('.rs');
+                rel.innerHTML = 'Lose';
+                ls = ls + 1;
+            }
+
+        }
+        
+        function y() {
+            if (com === 's') {
+                com = 'scissors';
+            }
+            if (com === 'r') {
+                com = 'rock';
+            }
+            if (com === 'p') {
+                com = 'paper';
+            }
+            const p = document.querySelector('.x');
+            p.innerHTML = `You <img src="images/${uc}-emoji.png" class="me"><img src="images/${com}-emoji.png" class="me"> Computer`;
+
+        }
+
+        function score() {
+            const o = document.querySelector('.z');
+            o.innerHTML = `Wins:${ws},Losses:${ls},Ties:${ts}`;
+        }
+
+        function reset() {
+            ws = 0;
+            ls = 0;
+            ts = 0;
+            score();
+            window.location.reload();
+        }
+        let s;
+        function rand() {
+             s = Math.random();
+            if (s >= 0 && s <= 1 / 3) {
+                //  apc = 's';
+                uc = 'scissors';
+                user('s');
+            }
+            else if (s > 1 / 3 && s <= 2 / 3) {
+                // apc = 'r';
+                uc = 'paper';
+                user('p');
+            }
+            else if((s < 1&& s > 2 / 3)) {
+                uc = 'rock';
+                user('r');
+
+            }
+
+        }
+        let apc = '';
+        let isautoplaying=true;
+        let interval;
+        let aut;
+        function autoplay(){
+            if(isautoplaying){
+            interval= setInterval(function(){
+            comp();
+            rand();
+            y();
+            score();
+             aut = document.querySelector('.ap');
+            aut.innerText = 'Stop play';
+          
+        },500);
+        isautoplaying=false;
+    }
+    else{
+        clearInterval(interval);
+        isautoplaying=true;
+        aut.innerText='Auto play';
+        window.location.reload();
+    }
+    }
+    </script>
+</body>
+
+</html>
